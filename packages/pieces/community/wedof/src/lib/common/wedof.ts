@@ -480,10 +480,7 @@ export const wedofCommon = {
         { label: 'MENTION ASSEZ BIEN', value: 'MENTION_ASSEZ_BIEN' },
         { label: 'MENTION BIEN', value: 'MENTION_BIEN' },
         { label: 'MENTION TRES BIEN', value: 'MENTION_TRES_BIEN' },
-        {
-          label: 'MENTION TRES BIEN AVEC FELICITATIONS',
-          value: 'MENTION_TRES_BIEN_AVEC_FELICITATIONS_DU_JURY',
-        },
+        { label: 'MENTION TRES BIEN AVEC FELICITATIONS', value: 'MENTION_TRES_BIEN_AVEC_FELICITATIONS_DU_JURY' },
       ],
       disabled: false,
     },
@@ -1049,32 +1046,52 @@ export const wedofCommon = {
       disabled: false,
       options: [
         {
-          label: 'Téléphone',
-          value: 'phone',
+          label: 'Créer',
+          value: 'create',
+        },
+        {
+          label: 'Mettre à jour',
+          value: 'update',
+        },
+        {
+          label: 'Mettre à jour l\'état',
+          value: 'updateState',
         },
         {
           label: 'Email',
           value: 'email',
         },
         {
-          label: 'Meeting',
+          label: 'Réunion',
           value: 'meeting',
+        },
+        {
+          label: 'Examen',
+          value: 'examination',
         },
         {
           label: 'Chat',
           value: 'chat',
         },
         {
-          label: 'SMS',
-          value: 'sms',
-        },
-        {
           label: 'Formation',
           value: 'training',
         },
         {
+          label: 'CDC',
+          value: 'cdc',
+        },
+        {
           label: 'Remarque',
           value: 'remark',
+        },
+        {
+          label: 'Téléphone',
+          value: 'phone',
+        },
+        {
+          label: 'SMS',
+          value: 'sms',
         },
         {
           label: 'Document',
@@ -1085,7 +1102,7 @@ export const wedofCommon = {
   }),
 
   qualiopiIndicators: Property.StaticDropdown({
-    displayName: 'Associée à Qualiopi',
+    displayName: 'Tableau des indicateurs Qualiopi',
     required: false,
     options: {
       disabled: false,

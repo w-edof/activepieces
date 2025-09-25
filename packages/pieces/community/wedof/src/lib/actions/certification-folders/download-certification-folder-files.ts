@@ -3,11 +3,11 @@ import { wedofAuth } from '../../..';
 import { createAction, Property } from '@activepieces/pieces-framework';
 import { wedofCommon } from '../../common/wedof';
 
-export const refuseCertificationFolder = createAction({
+export const downloadCertificationFolderFiles = createAction({
   auth: wedofAuth,
-  name: 'refuseCertificationFolder',
-  displayName: 'Passer un dossier de certification à l’état : Refuser',
-  description: "Change l'état d'un dossier de certification vers : Refuser",
+  name: 'downloadCertificationFolderFiles',
+  displayName: 'Télécharger un document d\'un dossier de certification',
+  description: 'Télécharger un document d\'un dossier de certification à partir de son id',
   props: {
     externalId: Property.ShortText({
       displayName: 'N° du dossier de certification',
@@ -15,25 +15,21 @@ export const refuseCertificationFolder = createAction({
         'Sélectionner la propriété {externalId} du dossier de certification',
       required: true,
     }),
-    comment: Property.LongText({
-      displayName: 'Commentaire',
-      description : "Ajoute un commentaire aux commentaires déjà présents sur le dossier - facultatif",
-      required: false,
+    certificationFolderFileId: Property.ShortText({
+      displayName: 'Id du document',
+      description:
+        'Sélectionner la propriété {certificationFolderFileId} du document',
+      required: true,
     }),
   },
   async run(context) {
-    const message = {
-      comment: context.propsValue.comment,
-    };
     return (
       await httpClient.sendRequest({
-        method: HttpMethod.POST,
+        method: HttpMethod.GET,
         url:
           wedofCommon.baseUrl +
           '/certificationFolders/' +
-          context.propsValue.externalId +
-          '/refuse',
-        body: message,
+          context.propsValue.externalId + '/files/' + context.propsValue.certificationFolderFileId,
         headers: {
           'Content-Type': 'application/json',
           'X-Api-Key': context.auth as string,

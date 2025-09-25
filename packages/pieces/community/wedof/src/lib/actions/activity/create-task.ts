@@ -1,14 +1,14 @@
-import { wedofAuth } from '../../index';
+import { wedofAuth } from '../../../index';
 import { createAction, Property } from '@activepieces/pieces-framework';
 import { HttpMethod, httpClient } from '@activepieces/pieces-common';
-import { wedofCommon } from '../common/wedof';
+import { wedofCommon } from '../../common/wedof';
 import dayjs from 'dayjs';
 
 export const createTask = createAction({
   auth: wedofAuth,
   name: 'createTask',
   displayName: "Créer une tâche",
-  description: "Permet de créer une tâche d'un dossier (Dossier de formation / Dossier de certification)",
+  description: "Permet de créer une tâche d'un dossier (Dossier de formation / Dossier de certification), un partenariat ou une proposition",
   props: {
     entityClass: Property.StaticDropdown({
       displayName: "Choisir le type de dossier",
@@ -18,15 +18,16 @@ export const createTask = createAction({
         options: [
           {label: "Dossier de certification", value: "CertificationFolder"},
           {label: "Dossier de formation", value: "RegistrationFolder"},
+          {label: "Partenariat", value: "CertificationPartner"},
           {label: "Proposition commerciale", value: "Proposal"}
         ],
         disabled: false,
       },
     }),
-    externalId: Property.ShortText({
+    entityId: Property.ShortText({
       displayName: 'N° du dossier',
       description:
-        'Sélectionner la propriété {externalId} du dossier',
+        'Sélectionner la propriété {entityId} du dossier',
       required: true,
     }),
     title: Property.ShortText({
@@ -52,6 +53,17 @@ export const createTask = createAction({
         displayName: "Lien (url) vers la tâche",
         required: false,
     }),
+    done: Property.StaticDropdown({
+      displayName: 'Indique si la tâche est terminée, par défaut Oui',
+      required: false,
+      defaultValue: true,
+      options: {
+        options: [
+          { label: 'Oui', value: true },
+          { label: 'Non', value: false },
+        ],
+      },
+    }),
 
   },
   async run(context) {
@@ -66,6 +78,7 @@ export const createTask = createAction({
         link: context.propsValue.link ?? null,
         eventTime: null,
         origin: "manual",
+        done: context.propsValue.done ?? true,
       };
       return (
         await httpClient.sendRequest({
@@ -74,7 +87,7 @@ export const createTask = createAction({
             wedofCommon.baseUrl +
             '/activities/' +
             context.propsValue.entityClass +
-            '/'+ context.propsValue.externalId,
+            '/'+ context.propsValue.entityId,
           body: message,
           headers: {
             'Content-Type': 'application/json',

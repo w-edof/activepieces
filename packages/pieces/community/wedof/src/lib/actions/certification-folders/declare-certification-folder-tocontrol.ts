@@ -23,7 +23,7 @@ export const declareCertificationFolderToControl = createAction({
     }),
     examinationDate: Property.DateTime({
       displayName: "Date de passage de l'examen",
-      description: 'Date au format YYYY-MM-DD.',
+      description: 'Date au format YYYY-MM-DD - obligatoire si non renseigné lors des étapes "register" ou "take"',
       required: true,
     }),
     examinationEndDate: Property.DateTime({

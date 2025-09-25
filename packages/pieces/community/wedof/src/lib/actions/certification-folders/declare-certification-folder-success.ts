@@ -27,8 +27,11 @@ export const declareCertificationFolderSuccess = createAction({
       required: true,
     }),
     digitalProofLink: Property.ShortText({
-      displayName:
-        "Lien vers la preuve numérique de l'obtention de la certification",
+      displayName: "Lien vers la preuve numérique de l'obtention de la certification",
+      required: false,
+    }),
+    badgeAssertion: Property.LongText({
+      displayName: 'Lien vers le badge de la certification',
       required: false,
     }),
     gradePass: wedofCommon.gradePass,
@@ -39,14 +42,15 @@ export const declareCertificationFolderSuccess = createAction({
   },
   async run(context) {
     const message = {
-      detailedResult: context.propsValue.detailedResult,
+      detailedResult: context.propsValue.detailedResult ?? null,
       issueDate: context.propsValue.issueDate
         ? dayjs(context.propsValue.issueDate).format('YYYY-MM-DD')
         : null,
-      digitalProofLink: context.propsValue.digitalProofLink,
+      digitalProofLink: context.propsValue.digitalProofLink ?? null,
       europeanLanguageLevel: context.propsValue.europeanLanguageLevel,
-      gradePass: context.propsValue.gradePass,
-      comment: context.propsValue.comment,
+      gradePass: context.propsValue.gradePass ?? null,
+      badgeAssertion: context.propsValue.badgeAssertion ?? null,
+      comment: context.propsValue.comment ?? null,
     };
     return (
       await httpClient.sendRequest({

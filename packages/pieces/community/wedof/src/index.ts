@@ -41,8 +41,8 @@ import { getCertificationFolder } from './lib/actions/certification-folders/get-
 import { searchCertificationFolder } from './lib/actions/certification-folders/search-certification-folder';
 import { getCertificationFolderDocuments } from './lib/actions/certification-folders/list-certification-folder-documents';
 import { listActivitiesAndTasks } from './lib/actions/list-activities-and-tasks';
-import { createTask } from './lib/actions/create-task';
-import { createActivitie } from './lib/actions/create-activitie';
+import { createTask } from './lib/actions/activity/create-task';
+import { createActivitie } from './lib/actions/activity/create-activitie';
 import { sendFile } from './lib/actions/send-file';
 import {me} from "./lib/actions/me";
 import {myOrganism} from "./lib/actions/my-organism";
@@ -75,6 +75,7 @@ import { addExecutionTag } from './lib/actions/add-execution-tag';
 import { listPartnerStats } from './lib/actions/certification/certification-partner-stats';
 import { createCertificationFolder } from './lib/actions/certification-folders/create-certification-folder';
 import { createRegistrationFolder } from './lib/actions/registration-folders/create-registration-folder';
+import { createAttendee } from './lib/actions/attendee/create-attendee';
 
 
 export const wedofAuth = PieceAuth.SecretText({
@@ -115,6 +116,7 @@ export const wedof = createPiece({
   ],
   authors: ['vbarrier','obenazouz'],
   actions: [
+    createAttendee,
     /////////////// certification /////////////////
     listPartnerStats,
     ////////////// registrationFolders ////////////
