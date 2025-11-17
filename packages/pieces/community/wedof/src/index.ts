@@ -76,6 +76,8 @@ import { listPartnerStats } from './lib/actions/certification/certification-part
 import { createCertificationFolder } from './lib/actions/certification-folders/create-certification-folder';
 import { createRegistrationFolder } from './lib/actions/registration-folders/create-registration-folder';
 import { createAttendee } from './lib/actions/attendee/create-attendee';
+import { getPartnerAudit } from './lib/actions/certification-partner-audit/get-partner-audit';
+import { replayAudit } from './lib/actions/certification-partner-audit/replay-audit';
 
 
 export const wedofAuth = PieceAuth.SecretText({
@@ -162,6 +164,8 @@ export const wedof = createPiece({
     ///////////// certificationPartnerAudit ////////
     createCertificationPartnerAudit,
     createGeneralAudit,
+    getPartnerAudit,
+    replayAudit,
     //////////// certificationPartner //////////////
     getPartnership,
     updatePartnership,

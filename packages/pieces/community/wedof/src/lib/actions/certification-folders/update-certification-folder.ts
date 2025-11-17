@@ -85,6 +85,10 @@ export const updateCertificationFolder = createAction({
             value: 'tags',
           },
           {
+            label: 'Metadata',
+            value: 'metadata',
+          },
+          {
             label: "Exclus de l'accrochage",
             value: 'cdcExcluded',
           },
@@ -281,6 +285,14 @@ export const updateCertificationFolder = createAction({
           });
         }
 
+        if (selectedFields.includes('metadata')) {
+          fields['metadata'] = Property.Array({
+            displayName: 'Metadata',
+            description: 'Liste de metadata associée au dossier de certification, uniquement pour le certificateur',
+            required: false,
+          });
+        }
+
         if (selectedFields.includes('cdcExcluded')) {
           fields['cdcExcluded'] = Property.StaticDropdown({
             displayName: "Exclus de l'accrochage",
@@ -372,6 +384,7 @@ export const updateCertificationFolder = createAction({
       comment,
       type,
       tags,
+      metadata,
       cdcExcluded,
       amountHt,
       certificate,
@@ -433,6 +446,9 @@ export const updateCertificationFolder = createAction({
           break;
         case 'tags':
           message['tags'] = tags && tags.length > 0 ? (tags as string[]) : null;
+          break;
+        case 'metadata':
+          message['metadata'] = metadata && metadata.length > 0 ? (metadata as string[]) : null;
           break;
         case 'cdcExcluded':
           message['cdcExcluded'] = cdcExcluded || null;
